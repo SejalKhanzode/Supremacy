@@ -1,5 +1,6 @@
 // Import the Mongoose library
 const mongoose = require("mongoose");
+// const Topics = require("./Topics")
 
 // Define the user schema using the Mongoose Schema constructor
 const userSchema = new mongoose.Schema(
@@ -36,14 +37,14 @@ const userSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
+		additionalDetails:{
+			type:mongoose.Schema.Types.ObjectId,
+			ref:"Profile",
+		},
 		token: {
 			type: String,
 		},
-		image: {
-			type: String,
-			required: true,
-		},
-		// Add timestamps for when the document is created and last modified
+		
 	},
 	{ timestamps: true }
 );
