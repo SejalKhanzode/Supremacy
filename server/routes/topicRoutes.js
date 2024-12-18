@@ -9,33 +9,28 @@ const {
     // getSubtopicsByTopicName,
     // updateTopicById,
     deleteTopic,
-} = require('../controllers/Topic');
+} = require('../controllers/Topics');
 
 
-// const {
-//     createSubTopic,
-// } = require('../controllers/SubTopic');
+const {
+    createSubTopic, updateSubTopic, deleteSubTopic
+} = require('../controllers/SubTopic');
 
 
 const { auth, isAdmin } = require("../middleware/auth")
 
 // **************************************Topic************************************************************
-router.post("/createTopic", auth, createTopic);
+router.post("/createTopic",auth, isAdmin, createTopic);
 router.get("/getAllDataStructures", getAllDSTopic);
 router.get("/getAllAlgorithms", getAllAlgoTopic)
 router.get("/getTopic",getTopicById);
-// router.get("/:topic", getTopicByName);
-// router.get("/topicName/subtopics", getSubtopicsByTopicName);
+
 // router.put("/updateTopic/:id", updateTopicById);
-router.delete("/deleteTopic/:id", deleteTopic);
+router.delete("/deleteTopic/:id",auth, isAdmin, deleteTopic);
 
 
 // **************************************SubTopic************************************************************
-// router.post("/createSubTopic", auth, isAdmin, createSubTopic);
-// router.get("/getAllTopic", getAllTopic);
-// router.get("/getTopic/:id",getTopicById);
-
-
+router.post("/createSubTopic", auth, isAdmin, createSubTopic);
 
 
 module.exports = router

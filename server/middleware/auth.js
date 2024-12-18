@@ -60,18 +60,19 @@ exports.isStudent = async (req, res, next) => {
 
 //isAdmin
 exports.isAdmin = async (req, res, next) => {
-  try {
-    if (req.user.accountType !== "Admin") {
-      return res.status(401).json({
-        success: false,
-        message: "This is a protected route for Admin only",
-      });
-    }
-    next();
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "User accountType cannot be verified, please try again",
-    });
-  }
+	try {
+		const userDetails = await User.findOne({ email: req.user.email });
+
+		if (userDetails.accountType !== "Admin") {
+			return res.status(401).json({
+				success: false,
+				message: "This is a Protected Route for Admin",
+			});
+		}
+		next();
+	} catch (error) {
+		return res
+			.status(500)
+			.json({ success: false, message: `User Role Can't be Verified` });
+	}
 };

@@ -5,10 +5,9 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSignupData } from "../slices/authSlice";
-import { toast } from "react-hot-toast";
 import { signUp } from "../services/operations/authAPI";
-import { ACCOUNT_TYPE, accountType } from "../utils/userRole";
-import Tab from "../components/common/Tab";
+import { ACCOUNT_TYPE } from "../utils/userRole";
+
 
 const Signup = () => {
   const navigate = useNavigate();

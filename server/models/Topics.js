@@ -24,7 +24,7 @@ const topicSchema = new mongoose.Schema(
         },
         subTopicContent: [{
             type: mongoose.Schema.Types.ObjectId, 
-            ref: "topics"
+            ref: "subTopic"
         }],
         mcquizContent: [{
             type: mongoose.Schema.Types.ObjectId, 

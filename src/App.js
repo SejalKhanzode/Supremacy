@@ -8,10 +8,14 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard";
-// import MyProfile from "./components/core/Dashboard/MyProfile"
+import DSA from "./pages/DSA";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import AdminDashboard from "./components/core/Dashboard/AdminDashboard/Admin";
 import StudentDashboard from "./components/core/Dashboard/StudentDashboard/Student";
+import DataStructures from "./components/core/DSA/DataStructures";
+import Algorithms from "./components/core/DSA/Algorithms";
+import ProgrammingQues from "./pages/ProgrammingQues";
+import ShowDetailQuestion from "./components/core/ProgrammingQuestion/ShowDetailQuestion";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -51,18 +55,13 @@ function App() {
           ) : (
             <Route path="dashboard/admin" element={<AdminDashboard />} />
           )}
-          {/* <Route 
-            path="dashboard/:accountType" 
-            element={
-             
-                 user?.accountType === "Student" ? 
-                  <StudentDashboard /> : 
-                  <AdminDashboard />
-              
-            } 
-          /> */}
         </Route>
 
+        <Route path="/data-structures-and-algorithms" element={<DSA />} />
+        <Route path="/data-structures" element={<DataStructures />}/>
+        <Route path="/algorithms" element={<Algorithms />} />
+        <Route path="/programming-questions" element={<ProgrammingQues />}/>
+        <Route path="/programming-questions/:questionId" element={<ShowDetailQuestion />}/>
         {/* <Route path="dashboard/Settings" element={<Settings />} />    */}
         <Route path="*" element={<Error />} />
       </Routes>

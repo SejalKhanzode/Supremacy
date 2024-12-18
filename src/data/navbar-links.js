@@ -4,12 +4,12 @@ const NavbarLinks = [
     path: "/",
   },
   {
-    title: "Data Structures",
-    path: "/datastructures",
+    title: "DSA",
+    path: "/data-structures-and-algorithms",
   },
   { 
-    title: "Algorithms", 
-    path: "/algorithms" 
+    title: "Programming", 
+    path: "/programming-questions" 
 },
   {
     title: "Quiz",
