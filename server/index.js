@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
 
-const authRoutes = require("./routes/Auth");
-// const profileRoutes = require("./routes/Profile");
-// const paymentRoutes = require("./routes/Payments");
-// const courseRoutes = require("./routes/Course");
+const userRoutes = require("./routes/userRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const topicRoutes = require("./routes/topicRoutes");
+const programmingQuesRoutes = require("./routes/programmingQueRoutes");
+const mcquizRoutes = require('./routes/mcquizRoutes');
+const questionRoutes = require('./routes/discussRoutes');
+const interviewQuesRoutes = require('./routes/interviewQueRoutes')
+
 
 const database = require("./config/database");
 const cookieParser = require("cookie-parser");
@@ -37,15 +41,16 @@ app.use(
 //cloudinary connection
 cloudinaryConnect();
 
-//routes
-app.use("/auth", authRoutes);
-// app.use("/api/v1/profile", profileRoutes);
-// app.use("/api/v1/course", courseRoutes);
-// app.use("/api/v1/payment", paymentRoutes);
-
+// //routes
+app.use("/api/auth", userRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/topic", topicRoutes);
+app.use("/api/programmingQue", programmingQuesRoutes)
+app.use("/api/quiz", mcquizRoutes)
+app.use('/api/discuss', questionRoutes)
+app.use('/api/interviewQues', interviewQuesRoutes)
 
 //def route
-
 app.get("/", (req, res) => {
 	return res.json({
 		success:true,

@@ -2,30 +2,25 @@ const mongoose = require('mongoose');
 
 const quesSchema = mongoose.Schema(
     {
-        title: {
+        question: {
             type: String,
             required: true
         },
-        body: {type:String,
+        description: {type:String,
             required:true
-        },
-        
-        views: {
-            type: Number,
-            default: 0,
         },
         likes: {
             type: Number,
             default: 0,
         },
-        answers: {
-            type: Number,
-            default: 0,
-        },
-        user: {
+        comments: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "users",
+            ref: "comments",
         },
+        // user: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: "users",
+        // },
         created_on: {
             type: Date,
             default: Date.now(),
