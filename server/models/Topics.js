@@ -1,4 +1,4 @@
-// Import the Mongoose library
+
 const mongoose = require("mongoose");
 
 const topicSchema = new mongoose.Schema(
@@ -12,7 +12,7 @@ const topicSchema = new mongoose.Schema(
             enum: ["Data Structure", "Algorithm"],
             required: true
         },
-        description: {
+        topicDesc: {
             type: String,
             required: true
         },
@@ -22,18 +22,23 @@ const topicSchema = new mongoose.Schema(
         file: {
             type: String,
         },
+        advantages: {
+            type: String,
+            required:false
+        },
+        disadvantages: {
+            type: String,
+            required: false
+        },
+        applications: {
+            type: String,
+            required: false
+        },
         subTopicContent: [{
             type: mongoose.Schema.Types.ObjectId, 
             ref: "subTopic"
         }],
-        mcquizContent: [{
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: "mcquiz"
-        }],
-        feedback: [{
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: "feedback"
-        }],
+       
     },
 );
 

@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
 
-const userRoutes = require("./routes/userRoutes");
-const profileRoutes = require("./routes/profileRoutes");
-const topicRoutes = require("./routes/topicRoutes");
-const programmingQuesRoutes = require("./routes/programmingQueRoutes");
-const mcquizRoutes = require('./routes/mcquizRoutes');
-const questionRoutes = require('./routes/discussRoutes');
-const interviewQuesRoutes = require('./routes/interviewQueRoutes')
+const userRoutes = require("./routes/user");
+const topicRoutes = require("./routes/topic");
+const programmingQuesRoutes = require("./routes/programmingQues");
+const interviewQuesRoutes = require('./routes/interview')
+const discussRoutes = require("./routes/discuss")
+const quizRoutes = require('./routes/quiz');
+// const questionRoutes = require('./routes/discussRoutes');
 
 
 const database = require("./config/database");
@@ -41,14 +41,14 @@ app.use(
 //cloudinary connection
 cloudinaryConnect();
 
-// //routes
+//routes
 app.use("/api/auth", userRoutes);
-app.use("/api/profile", profileRoutes);
 app.use("/api/topic", topicRoutes);
 app.use("/api/programmingQue", programmingQuesRoutes)
-app.use("/api/quiz", mcquizRoutes)
-app.use('/api/discuss', questionRoutes)
-app.use('/api/interviewQues', interviewQuesRoutes)
+app.use('/api/interview', interviewQuesRoutes)
+app.use('/api/discuss', discussRoutes)
+app.use("/api/quiz", quizRoutes)
+// app.use('/api/discuss', questionRoutes)
 
 //def route
 app.get("/", (req, res) => {

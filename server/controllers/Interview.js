@@ -1,4 +1,4 @@
-const InterviewQue = require("../models/Interview");
+const InterviewQue = require("../models/InterviewPrep");
 
 exports.createInterviewQue= async(req, res)=>{
     try {
@@ -52,34 +52,9 @@ exports.getAllInterviewquestion = async (req, res) => {
   }
 };
 
-// // get InterviewQue by id
-// exports.getFeedbackById = async (req, res) => {
-//   try {
-//     const { id } = req.body;
-//     const feedback = await Feedback.findOne({ id });
-
-//     if (!feedback) {
-//       return res.status(200).json({
-//         success: false,
-//         message: "Feedback not found",
-//       });
-//     }
-//     return res.status(200).json({
-//       success: true,
-//       data: feedback,
-//     });
-//   } catch (error) {
-//     return res.status(404).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
-
-
 exports.deleteInterviewQuestion = async (req, res) => {
   try {
-    const id = req.params;
+    const { id } = req.params;
     console.log(id);
     const deletedQue = await InterviewQue.findByIdAndDelete(id);
     if (!deletedQue) {

@@ -1,40 +1,38 @@
 const Topic = require("../models/Topics");
-const SubTopic = require("../models/SubTopics");
-const User = require("../models/User");
+
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 exports.createTopic = async (req, res) => {
   try {
-    const { topicName, type, description } = req.body;
+    const {
+      topicName,
+      type,
+      topicDesc,
+      advantages,
+      disadvantages,
+      applications,
+    } = req.body;
     const thumbnail = req.files.thumbnailImage;
 
-    if (!topicName || !type || !description) {
+    if (!topicName || !type || !topicDesc) {
       return res.status(400).json({
         success: false,
         message: "All Fields are Mandatory",
       });
     }
 
-    const userId = req.user.id;
-    const adminDetails = await User.findById(userId);
-    console.log("Admin Details>>", adminDetails);
-
-    if (!adminDetails) {
-      return res.status(404).json({
-        success: false,
-        message: "Admin Details are not found",
-      });
-    }
-
     const thumbnailImage = await uploadImageToCloudinary(
-      thumbnail,
+        thumbnail,
       process.env.FOLDER_NAME
     );
 
-    const newTopic= await Topic.create({
+    const newTopic = await Topic.create({
       topicName,
       type,
-      description,
+      topicDesc,
+      advantages,
+      disadvantages,
+      applications,
       thumbnail: thumbnailImage.secure_url,
     });
 
@@ -45,7 +43,7 @@ exports.createTopic = async (req, res) => {
       success: true,
       // data: populatedCategory,
       message: "Topic Created Successfully",
-      newTopic
+      newTopic,
     });
   } catch (error) {
     console.error(error);
@@ -60,7 +58,7 @@ exports.createTopic = async (req, res) => {
 // Get All DS Topic List
 exports.getAllDSTopic = async (req, res) => {
   try {
-    const allDSTopic = await Topic.find({ type: "Data structures" }).populate("SubTopic");
+    const allDSTopic = await Topic.find({ type: "Data Structure" });
 
     return res.status(200).json({
       success: true,
@@ -79,7 +77,7 @@ exports.getAllDSTopic = async (req, res) => {
 // Get All Algo Topic List
 exports.getAllAlgoTopic = async (req, res) => {
   try {
-    const allAlgoTopic = await Topic.find({ type: "Algorithms" }).populate("SubTopic");
+    const allAlgoTopic = await Topic.find({ type: "Algorithm" });
 
     return res.status(200).json({
       success: true,
@@ -90,6 +88,25 @@ exports.getAllAlgoTopic = async (req, res) => {
     return res.status(404).json({
       success: false,
       message: `Can't Fetch Algorithms Data`,
+      error: error.message,
+    });
+  }
+};
+
+// getAllTopic
+exports.getAllTopics = async (req, res) => {
+  try {
+    const allTopic = await Topic.find();
+
+    return res.status(200).json({
+      success: true,
+      data: allTopic,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      success: false,
+      message: `Can't Fetch Data`,
       error: error.message,
     });
   }

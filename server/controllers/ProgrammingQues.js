@@ -152,6 +152,7 @@ exports.deleteProgrammingQues = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Programming Question deleted successfully",
+      deletedQuestion
     });
   } catch (error) {
     console.log(error);

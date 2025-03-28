@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
-const quesSchema = mongoose.Schema(
+const programmingQueSchema = mongoose.Schema(
     {
         title: {
             type: String,
             required: true,
         },
         topic: {
+            type: String,
+            required: true,
+        },
+        description: {
             type: String,
             required: true,
         },
@@ -21,12 +25,8 @@ const quesSchema = mongoose.Schema(
         sampleOutput: {
             type: String,
             required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        },
+        },     
     }
 )
 
-module.exports= mongoose.model('programmingQue', quesSchema);
+module.exports= mongoose.model('programmingQue', programmingQueSchema);

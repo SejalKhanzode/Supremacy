@@ -1,5 +1,4 @@
-
-const Topic = require("../models/Topic")
+const Topic = require("../models/Topics")
 const SubTopic = require("../models/SubTopics")
 const { uploadImageToCloudinary } = require("../utils/imageUploader")
 
@@ -8,12 +7,12 @@ exports.createSubTopic = async (req, res) => {
   try {
     // Extract necessary information from the request body
     const {topicId} = req.body;
-    const { subTopicName, description, ccode,cppcode, javacode } = req.body;
+    const { subTopicName, subTopicDescription, ccode,cppcode, javacode } = req.body;
     const subtopicfile = req.files.file;
 
     // Check if all necessary fields are provided
     if (!subTopicName ||
-    !description ) {
+    !subTopicDescription ) {
       return res
         .status(404)
         .json({ success: false, message: "All Fields are Required" })
@@ -29,7 +28,7 @@ exports.createSubTopic = async (req, res) => {
     // Create a new sub-section with the necessary information
     const SubTopicDetails = await SubTopic.create({
       subTopicName: subTopicName,
-      description: description,
+      subTopicDescription: subTopicDescription,
       ccode: ccode,
       cppcode: cppcode,
       javacode: javacode,
@@ -38,14 +37,13 @@ exports.createSubTopic = async (req, res) => {
     // Update the corresponding section with the newly created sub-section
     const updatedSection = await Topic.findByIdAndUpdate(
       { _id: topicId },
-      { $push: { subTopic: SubTopicDetails._id } },
+      { $push: { subTopicContent: SubTopicDetails._id } },
       { new: true }
-    ).populate("subTopic")
+    ).populate("subTopicContent")
 
     // Return the updated section in the response
     return res.status(200).json({ success: true, data: updatedSection })
   } catch (error) {
-    // Handle any errors that may occur during the process
     console.error("Error creating new subTopic", error)
     return res.status(500).json({
       success: false,
@@ -86,9 +84,8 @@ exports.updateSubTopic = async (req, res) => {
 
     await subTopic.save()
 
-    // find updated section and return it
     const updatedTopic = await Topic.findById(topicId).populate(
-      "subTopic"
+      "subTopicContent"
     )
 
     console.log("updated section", updatedTopic)
@@ -114,11 +111,11 @@ exports.deleteSubTopic = async (req, res) => {
       { _id: topicId },
       {
         $pull: {
-            subTopic: subTopicId,
+            subTopicContent: subTopicId,
         },
       }
     )
-    const subTopic = await subTopic.findByIdAndDelete({ _id: subTopicId })
+    const subTopic = await SubTopic.findByIdAndDelete({ _id: subTopicId })
 
     if (!subTopic) {
       return res
@@ -126,9 +123,8 @@ exports.deleteSubTopic = async (req, res) => {
         .json({ success: false, message: "subTopic not found" })
     }
 
-    // find updated section and return it
     const updatedSection = await Topic.findById(topicId).populate(
-      "subTopic"
+      "subTopicContent"
     )
 
     return res.json({

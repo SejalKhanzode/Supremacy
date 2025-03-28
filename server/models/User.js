@@ -1,8 +1,6 @@
-// Import the Mongoose library
-const mongoose = require("mongoose");
-// const Topics = require("./Topics")
 
-// Define the user schema using the Mongoose Schema constructor
+const mongoose = require("mongoose");
+
 const userSchema = new mongoose.Schema(
 	{
 		firstName: {
@@ -37,10 +35,36 @@ const userSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
-		additionalDetails:{
+		attemptedQuizzes: [
+			{
+			  quizId: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Quiz',
+				required: true,
+			  },
+			  answers: [
+				{
+				  questionId: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Quiz.questions',
+				  },
+				  answer: String,
+				},
+			  ],
+			  score: {
+				type: Number,
+				default: 0,
+			  },
+			  attemptedAt: {
+				type: Date,
+				default: Date.now,
+			  },
+			},
+		  ],
+		programmingQueDetails:[{
 			type:mongoose.Schema.Types.ObjectId,
-			ref:"Profile",
-		},
+			ref:"ProgrammingQue"
+		}],
 		token: {
 			type: String,
 		},
@@ -49,5 +73,4 @@ const userSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-// Export the Mongoose model for the user schema, using the name "user"
 module.exports = mongoose.model("user", userSchema);

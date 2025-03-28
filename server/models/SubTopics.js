@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 
 const subTopicSchema = new mongoose.Schema(
     {
-        topicName: {
+        subTopicName: {
             type: String,
             required: true
         },
-        topicDescription: {
+        subTopicDescription: {
             type: String,
             required: true
         },
@@ -18,8 +18,11 @@ const subTopicSchema = new mongoose.Schema(
         },
         javacode: {
             type: String
+        },
+        file:{
+            type:String
         }
     },
 );
 
-module.exports = mongoose.model('subtopics', subTopicSchema);
+module.exports = mongoose.model('subTopic', subTopicSchema);
